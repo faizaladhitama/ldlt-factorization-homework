@@ -1,3 +1,4 @@
 Changelog
 
-1.0.0 : Program dibuat, masih terdapat bug
+1.0.0 : Program dibuat, masih terdapat bug : mengembalikan solusi dari b setelah dioperasikan saat pivoting
+1.0.1 : Memperbaiki program, bug pada 1.0.0 sudah ditangani
