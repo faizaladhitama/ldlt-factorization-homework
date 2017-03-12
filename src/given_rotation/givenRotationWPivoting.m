@@ -5,25 +5,32 @@ function [Q,R,p] = givenRotationWPivoting(A)
 %            matrix R nxn
 %   Menggunakan pivoting = menambah akurasi mengurangi kecepatan
     tic
-    [m,n] = size(A);
+        [m,n] = size(A);
     identitas = eye(m);
     a = 1;
     temp = A;
     temp2 = identitas;
-    p = 1:m;
+    zero = zeros(m,1);
+    p = eye(m);
     for i=n:-1:1
-        [c,z] = max(abs(A(a:n,a)));
+        zero(a:m,1) = temp(a:m,a);
+        [c,z] = max(abs(zero));
         if c==0
             quit;
         end
-        tmpA = A(a,:);
-        tmpp = p(a);
-        A(a,:) = A(z,:);
-        p(a) = p(z);
-        A(z,:) = tmpA;
-        p(z) = tmpp;
-        temp;
-        for j=m:-1:m-i
+        tmpA = temp(a,:);
+        tmpp = p(a,:);
+        temp(a,:) = temp(z,:);
+        p(a,:) = p(z,:);
+        temp(z,:) = tmpA;
+        p(z,:) = tmpp;
+        cond = 0;
+        if m > n
+            cond = m-i;
+        else
+            cond = m-i+2;
+        end
+        for j=m:-1:cond
             e1 = temp(j,a);
             e2 = temp(j-1,a);
             r = sqrt(e1^2+e2^2);
@@ -38,6 +45,7 @@ function [Q,R,p] = givenRotationWPivoting(A)
             identitas = eye(m);
         end
         a = a + 1;
+        zero = zeros(m,1);
     end
     R = temp;
     Q = temp2;
