@@ -3,8 +3,20 @@ function [x] = symmetricSol(A,b)
   % b merupakan matriks berdimensi n x 1
   % x merupakan solusi dari Ax = b
 	[n,n] = size(A);
-	[L,D,b,p] = ldltFactor(A,b);
+	[L,D,p] = ldltFactor(A);
+  vtmp = p;
 	
+  for i = 1:n
+    if(ne(i,vtmp(i)))
+      tmp = b(i);
+      b(i) = b(vtmp(i));
+      b(vtmp(i)) = tmp;
+      
+      vtmp(vtmp(i)) = vtmp(i);
+      vtmp(i) = i;
+    end
+  end
+  
 	y = lowTriSol(L,b);
 	w = diagonalSol(D,y);
 	x = upTriSol(L',w);
