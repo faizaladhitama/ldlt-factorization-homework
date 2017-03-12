@@ -1,13 +1,23 @@
 function [Q,R] = givenRotation(A)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%GivenRotation melakukan dekomposisi matrix A
+%   Input  = matrix A nxn
+%   Output = matrix Q mxn
+%            matrix R nxn
+%   Akurasi cukup rendah karena ada fungsi sqrt
+    tic
     [m,n] = size(A);
     identitas = eye(m);
     a = 1;
     temp = A;
     temp2 = identitas;
     for i=n:-1:1
-        for j=m:-1:m-i
+        cond = 0;
+        if m > n
+            cond = m-i;
+        else
+            cond = m-i+2;
+        end
+        for j=m:-1:cond
             e1 = temp(j,a);
             e2 = temp(j-1,a);
             r = sqrt(e1^2+e2^2);
@@ -17,13 +27,14 @@ function [Q,R] = givenRotation(A)
             identitas(j-1,j-1) = c;
             identitas(j-1,j) = s;
             identitas(j,j-1) = -s;
+            identitas;
             temp = identitas*temp;
             temp2 = temp2*transpose(identitas);
             identitas = eye(m);
         end
         a = a + 1;
     end
-    
     R = temp;
     Q = temp2;
+    toc
 end
