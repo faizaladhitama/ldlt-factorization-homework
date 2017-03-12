@@ -13,7 +13,7 @@ function [Q,R,p] = givenRotationWPivotingV2(A)
     zero = zeros(m,1)
     p = eye(m);
     for i=n:-1:1
-        zero = zero + A(1:m,a)
+        zero(a:m,1) = A(a:m,a);
         [c,z] = max(abs(zero))
         if c==0
             quit;
@@ -39,8 +39,8 @@ function [Q,R,p] = givenRotationWPivotingV2(A)
             temp2 = temp2*transpose(identitas);
             identitas = eye(m);
         end
-        a = a + 1
-        zero = zeros(m,1)
+        a = a + 1;
+        zero = zeros(m,1);
     end
     R = temp;
     Q = temp2;
