@@ -12,7 +12,6 @@ function [Q,R] = givenRotationV2(A)
     [m,n] = size(A);
     identitas = eye(m);
     a = 1;
-    range = m-n;
     temp = A;
     temp2 = identitas;
     for i=n:-1:1

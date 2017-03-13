@@ -1,13 +1,13 @@
-A = [170 1;165 1;167 1;160 1]
+A = rand(10,10)
 
-[Q,R] = givenRotation(A)
-[Q,R,p] = givenRotationWPivoting(A)
-[Q,R,p] = givenRotationWPivotingV2(A)
+[Q,R] = givenRotationV2(A)
 
+b = rand(10,1)
 
-b = [75;67;78;50];
 [m,n] = size(A);
 
+% Qt*A = R
+% A = Q*R -> Qt = inv(Q) karena Q orthogonal
 % Ax = b
 % (Q*R)*x = Q^t*b
 % b dikalikan dengan Q transpose karena
@@ -15,9 +15,6 @@ b = [75;67;78;50];
 % di transformasi juga (sama seperti pivoting)
 
 c = transpose(Q)*b;
-
-[u,v] = size(z);
-
 % karena terjadi peng-0-lan pada n baris maka
 % c = nilai b setelah di transformasi
 
@@ -27,15 +24,12 @@ c2 = c([1:n],:);
 p2 = length(c2);
 
 x = zeros(p2,1);
-
 x(p2) = c2(p2)/R(p2,p2);
-
-for i=p2-1:1
+for i=p2-1:-1:1
     sum=0;
     for j=p2:i+1;
         sum = sum+R(i,j)*x(j);
     end
-    x(i) = (c2(i)-sum)/R(i,i);;
+    x(i) = (c2(i)-sum)/R(i,i);
 end
-
 x

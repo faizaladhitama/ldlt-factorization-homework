@@ -11,13 +11,7 @@ function [Q,R] = givenRotation(A)
     temp = A;
     temp2 = identitas;
     for i=n:-1:1
-        cond = 0;
-        if m > n
-            cond = m-i;
-        else
-            cond = m-i+2;
-        end
-        for j=m:-1:cond
+        for j=m:-1:(a+1)
             e1 = temp(j,a);
             e2 = temp(j-1,a);
             r = sqrt(e1^2+e2^2);
