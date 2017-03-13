@@ -8,10 +8,11 @@ function [L,D,p] = ldltFactor(A)
   % p merupakan matriks dengan dimensi n x 1 
   [n,n] = size(A);
   D = zeros(n,1);
-  L = eye(n);
+  L = zeros(n*(n-1)/2,1);
   p = indexVector(n);
   for i = 1:n
-     % diagonal pivoting
+    % diagonal pivoting
+    
     maxIdx = i;
     for j = i+1:n
       if(abs(A(j,j)) > abs(A(maxIdx, maxIdx)))
@@ -33,10 +34,13 @@ function [L,D,p] = ldltFactor(A)
     end
     %swapping end
     %diagonal pivoting end
+    
     D(i) = A(i,i);
+    c = i*(i+1)/2;
     for j=i+1:n
-      L(j,i) = A(j,i)/A(i,i);
-      A(j,i+1:n) = A(j,i+1:n) - L(j,i)*A(i,i+1:n);
+      L(c) = A(j,i)/A(i,i);
+      A(j,i+1:n) = A(j,i+1:n) - L(c)*A(i,i+1:n);
+      c = c + j - 1;
     end
   end
 end

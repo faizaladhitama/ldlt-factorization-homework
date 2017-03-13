@@ -16,10 +16,9 @@ function [x] = symmetricSol(A,b)
       vtmp(i) = i;
     end
   end
-  
 	y = lowTriSol(L,b);
 	w = diagonalSol(D,y);
-	x = upTriSol(L',w);
+	x = upTriSol(L,w);
   
   for i = 1:n
     if(ne(i,p(i)))
@@ -29,7 +28,6 @@ function [x] = symmetricSol(A,b)
       
       p(p(i)) = p(i);
       p(i) = i;
-      
     end
   end
 end 
