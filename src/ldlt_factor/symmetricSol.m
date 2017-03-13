@@ -4,30 +4,33 @@ function [x] = symmetricSol(A,b)
   % x merupakan solusi dari Ax = b
 	[n,n] = size(A);
 	[L,D,p] = ldltFactor(A);
-  vtmp = p;
-	
+  vtmp = zeros(n,1);
   for i = 1:n
-    if(ne(i,vtmp(i)))
-      tmp = b(i);
-      b(i) = b(vtmp(i));
-      b(vtmp(i)) = tmp;
-      
-      vtmp(vtmp(i)) = vtmp(i);
-      vtmp(i) = i;
-    end
+    vtmp(i) = b(p(i))
   end
-	y = lowTriSol(L,b);
+	y = lowTriSol(L,vtmp);
 	w = diagonalSol(D,y);
 	x = upTriSol(L,w);
   
   for i = 1:n
     if(ne(i,p(i)))
-      tmp = x(i);
-      x(i) = x(p(i));
-      x(p(i)) = tmp;
       
-      p(p(i)) = p(i);
-      p(i) = i;
+      for j = i+1:n
+        
+        if(eq(i,p(j)))
+          
+          tmp = x(i);
+          x(i) = x(j);
+          x(j) = tmp;
+          
+          tmp = p(i);
+          p(i) = i;
+          p(j) = tmp;
+          
+        end
+        
+      end
+      
     end
   end
 end 
