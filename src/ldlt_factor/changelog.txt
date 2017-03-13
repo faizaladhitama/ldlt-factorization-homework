@@ -3,3 +3,4 @@ Changelog
 1.0.0 : Program dibuat, masih terdapat bug : mengembalikan solusi dari b setelah dioperasikan saat pivoting
 1.0.1 : Memperbaiki program, bug pada 1.0.0 sudah ditangani, ldltFactor belum sesuai dengan deskripsi soal
 1.0.2 : Memperbaiki program sehingga program sudah sesuai deskripsi soal
+1.0.3 : Memperbaiki efisiensi memori
