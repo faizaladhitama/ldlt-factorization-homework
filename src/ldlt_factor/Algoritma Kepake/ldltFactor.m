@@ -10,7 +10,7 @@ function [L,D,p] = ldltFactor(A,b)
   D = zeros(n,1);
   L = zeros(n*(n-1)/2,1);
   p = indexVector(n);
-  
+
   for i = 1:n
     max = i;
     for j = i+1:n
