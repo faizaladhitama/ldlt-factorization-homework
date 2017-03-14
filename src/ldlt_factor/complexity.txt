@@ -1,0 +1,18 @@
+LDLT Factorization
+
+Memori :
+	
+	Vektor indeks : n
+	Vektor diagonal = n
+	Matriks L (dalam bentuk vektor) = (n^2)/2 - n/2
+	Vektor salinan b = n
+	Vektor x (untuk Ly = b, Dw = y, Ux = w) = 3n
+	Total = (n^2)/2 + (11/2)n = (n^2)/2 + O(n)
+	
+Waktu :
+
+	Pivoting (swapping dan pengembalian ke posisi semula) = n^2 - n
+	Penyelesaian L dan L' = n^2 - n
+	Penyelesaian D = n
+	Faktorisasi = (n^3)/3 -(n^2)/2 + n/6
+	Total = (n^3)/3 + 3(n^2)/2 - 5n/6 = (n^3)/3 + O(n^2)

@@ -11,8 +11,7 @@ function [L,D,p] = ldltFactor(A)
   L = zeros(n*(n-1)/2,1);
   p = indexVector(n);
   for i = 1:n
-    % diagonal pivoting
-    
+    % diagonal pivoting  
     maxIdx = i;
     for j = i+1:n
       if(abs(A(j,j)) > abs(A(maxIdx, maxIdx)))
