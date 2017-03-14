@@ -1,4 +1,4 @@
-function [L,D,p] = ldltFactor(A)
+function [L,D,p] = ldltFactor(A,b)
   % Mengembalikan L dan D hasil faktorisasi LDL'
   % dan p, dimana baris ke-p(i) ditukar dengan
   % baris ke-i pada matriks A pada operasi pivoting
@@ -10,30 +10,30 @@ function [L,D,p] = ldltFactor(A)
   D = zeros(n,1);
   L = zeros(n*(n-1)/2,1);
   p = indexVector(n);
+  
   for i = 1:n
-    % diagonal pivoting  
-    maxIdx = i;
+    max = i;
     for j = i+1:n
-      if(abs(A(j,j)) > abs(A(maxIdx, maxIdx)))
-        maxIdx = j;
+      if(gt(abs(A(j,j)),abs(A(max,max))))
+        max = j;
       end
     end
-    %swapping
-    if(ne(i,maxIdx))
+    if(ne(i,max))
       tmp = A(i,:);
-      A(i,:) = A(maxIdx,:);
-      A(maxIdx,:) = tmp;
-      
-      p(i) = maxIdx;
-      p(maxIdx) = i;
-      
+      A(i,:) = A(max,:);
+      A(max,:) = tmp;
+       
       tmp = A(:,i);
-      A(:,i) = A(:,maxIdx);
-      A(:,maxIdx) = tmp;
+      A(:,i) = A(:,max);
+      A(:,max) = tmp;
+      
+      tmp = p(i);
+      p(i) = p(max);
+      p(max) = tmp;
     end
-    %swapping end
-    %diagonal pivoting end
-    
+  end
+  
+  for i = 1:n
     D(i) = A(i,i);
     c = i*(i+1)/2;
     for j=i+1:n
